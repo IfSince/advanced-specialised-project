@@ -8,15 +8,17 @@ import { Title } from '@/components/layout/title'
 import { Suspense } from 'react'
 import { PokemonListEntrySkeleton } from '@/components/skeletons/pokemon-list-entry.skeleton'
 import { RowSkeleton } from '@/components/skeletons/table/row.skeleton'
+import { PokemonListResult } from '@/lib/models/pokemon-list-result.model'
+
 
 export default async function Page({ searchParams }: { searchParams?: { page?: string } }) {
-  const page = +((searchParams?.page) || 1)
+  // We determine the count one and then automatically cache it
+  // We have to do this because of the way the API is designed
+  const { count }: PokemonListResult = await getPokemonList(1)
 
+  const page = +((searchParams?.page) || 1)
   const limit = 10
   const offset = page * limit - 10
-
-  const data = await getPokemonList(limit, offset)
-  // const details = await Promise.all(data.results.map(({ name }) => getPokemonDetailByName(name).then(mapPokemonListDetail)))
 
   return (
     <section>
@@ -26,15 +28,15 @@ export default async function Page({ searchParams }: { searchParams?: { page?: s
           <div className="flex flex-1 items-center space-x-4">
             <h5>
               <span className="text-gray-500 mr-1.5">Total Pokemon:</span>
-              <span className="text-white">{ data.count }</span>
+              <span className="text-white">{ count }</span>
             </h5>
           </div>
         </div>
 
         <Table columns={ ['Name', 'Pokedex-Nr.', 'Types', 'HP', 'Attack', 'Defense', 'Special Attack', 'Special Defense', 'Speed'] }
-               paginationConfig={ { total: data.count, offset, limit } }>
-          <Suspense fallback={ <RowSkeleton count={ 20 } element={ <PokemonListEntrySkeleton/> }/> }>
-            <PokemonList names={ data.results.map(result => result.name) }/>
+               paginationConfig={ { total: count, offset, limit } }>
+          <Suspense key={ page } fallback={ <RowSkeleton count={ limit } element={ <PokemonListEntrySkeleton/> }/> }>
+            <PokemonList limit={ limit } offset={ offset }/>
           </Suspense>
         </Table>
       </Panel>
@@ -42,7 +44,9 @@ export default async function Page({ searchParams }: { searchParams?: { page?: s
   )
 }
 
-const PokemonList = async ({ names }: { names: string[] }) => {
-  const details = await Promise.all(names.map(name => getPokemonDetailByName(name).then(mapPokemonListDetail)))
+const PokemonList = async ({ limit, offset }: { limit: number, offset: number }) => {
+  const data = await getPokemonList(limit, offset)
+  const details = await Promise.all(data.results.map(({ name }) => getPokemonDetailByName(name).then(mapPokemonListDetail)))
+
   return details.map(detail => <PokemonListElement key={ detail.name } { ...detail }/>)
 }

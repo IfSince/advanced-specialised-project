@@ -5,7 +5,7 @@ import { Cell } from '@/components/layout/table/cell'
 export const PokemonListEntrySkeleton = () =>
   <Row>
     <Cell className="flex items-center">
-      <Skeleton className="mr-3 h-8 w-8"/>
+      <Skeleton className="mr-3 h-[34px] w-[34px]"/>
       <Skeleton className="h-5 w-40"/>
     </Cell>
     <Cell><Skeleton className="h-5 w-12"/></Cell>
