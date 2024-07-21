@@ -54,8 +54,8 @@ export const Moves = ({
 
   return (
     <>
-      <SubTitle>
-        <span className="flex items-center justify-between">
+      <SubTitle className="pt-0">
+        <span className="flex justify-between items-end">
           Moves
           <div>
             <label htmlFor="game" className="sr-only">Select Pokemon Game Version</label>

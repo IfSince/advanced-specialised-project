@@ -43,7 +43,7 @@ export const Sprites = ({ sprites }: { sprites: PokemonDetail['sprites'] }) => {
 
   return (
     <>
-      <SubTitle>
+      <SubTitle className="pt-0">
         <div className="flex flex-row items-end justify-between gap-4">
           <span>Sprites</span>
           <div className="flex gap-2">

@@ -6,8 +6,8 @@ export default async function SpritesPanelPage({ params: { name } }: { params: {
   const { sprites } = await getPokemonDetailByName(name)
 
   return (
-      <Panel className="xl:col-span-2">
-        <Sprites sprites={sprites}/>
-      </Panel>
+    <Panel className="xl:col-span-2">
+      <Sprites sprites={ sprites }/>
+    </Panel>
   )
 }
