@@ -9,8 +9,13 @@ import { Suspense } from 'react'
 import { PokemonListEntrySkeleton } from '@/components/skeletons/pokemon-list-entry.skeleton'
 import { RowSkeleton } from '@/components/skeletons/table/row.skeleton'
 
-export default async function Page() {
-  const data = await getPokemonList()
+export default async function Page({ searchParams }: { searchParams?: { page?: string } }) {
+  const page = +((searchParams?.page) || 1)
+
+  const limit = 10
+  const offset = page * limit - 10
+
+  const data = await getPokemonList(limit, offset)
   // const details = await Promise.all(data.results.map(({ name }) => getPokemonDetailByName(name).then(mapPokemonListDetail)))
 
   return (
@@ -26,7 +31,8 @@ export default async function Page() {
           </div>
         </div>
 
-        <Table columns={ ['Name', 'Pokedex-Nr.', 'Types', 'HP', 'Attack', 'Defense', 'Special Attack', 'Special Defense', 'Speed'] }>
+        <Table columns={ ['Name', 'Pokedex-Nr.', 'Types', 'HP', 'Attack', 'Defense', 'Special Attack', 'Special Defense', 'Speed'] }
+               paginationConfig={ { total: data.count, offset, limit } }>
           <Suspense fallback={ <RowSkeleton count={ 20 } element={ <PokemonListEntrySkeleton/> }/> }>
             <PokemonList names={ data.results.map(result => result.name) }/>
           </Suspense>

@@ -6,7 +6,6 @@ export const getPokemonDetailByName = async (name: string): Promise<PokemonDetai
     const response = await fetch(`${ BASE_URL }/pokemon/${ name }`)
 
     return response.json()
-
   } catch (error) {
     console.error(error)
     throw new Error(`Failed to load pokemon detail for pokemon: ${ name }.`)

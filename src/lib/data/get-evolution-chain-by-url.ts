@@ -5,9 +5,6 @@ export const getEvolutionChainByUrl = async (url: string, name: string): Promise
   try {
     const response = await fetch(url)
 
-    // await new Promise(resolve => setTimeout(resolve, 5000))
-    // throw new Error('test')
-
     return response.json()
   } catch (error) {
     console.error(error)
