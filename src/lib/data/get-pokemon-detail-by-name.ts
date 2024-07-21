@@ -5,6 +5,10 @@ export const getPokemonDetailByName = async (name: string): Promise<PokemonDetai
   try {
     const response = await fetch(`${ BASE_URL }/pokemon/${ name }`)
 
+    if (!response.ok) {
+      throw new Error(response.statusText)
+    }
+
     return response.json()
   } catch (error) {
     console.error(error)

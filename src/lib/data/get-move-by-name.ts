@@ -5,6 +5,10 @@ export const getMoveByName = async (name: string): Promise<Move> => {
   try {
     const response = await fetch(`${ BASE_URL }/move/${ name }`)
 
+    if (!response.ok) {
+      throw new Error(response.statusText)
+    }
+
     return response.json()
   } catch (error) {
     console.error(error)

@@ -5,6 +5,10 @@ export const getTypeByName = async (name: string): Promise<PokemonType> => {
   try {
     const response = await fetch(`${ BASE_URL }/type/${ name }`)
 
+    if (!response.ok) {
+      throw new Error(response.statusText)
+    }
+
     return response.json()
   } catch (error) {
     console.error(error)
