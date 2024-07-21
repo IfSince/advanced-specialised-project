@@ -8,10 +8,14 @@ export default async function AbilitiesPanelPage({ params: { name } }: { params:
   const { abilities: abilityApiLinks } = await getPokemonDetailByName(name)
   const abilities = await Promise.all(abilityApiLinks.map(({ ability: { name } }) => getPokemonAbilityByName(name)))
 
-  const abilitiesAsKeyValue = abilities.map(ability => ({
-    key: `${ ability.name } ${ abilityApiLinks.find(it => it.ability.name === ability.name)?.is_hidden ? '(Hidden)' : '' }`,
-    value: ability.effect_entries.find(entry => entry.language.name === 'en')?.effect ?? 'No description found',
-  }))
+  const abilitiesAsKeyValue = abilities.map(ability => {
+    return ({
+      key: `${ ability.name } ${ abilityApiLinks.find(it => it.ability.name === ability.name)?.is_hidden ? '(Hidden)' : '' }`,
+      value: ability.effect_entries.find(entry => entry.language.name === 'en')?.effect ??
+        ability.flavor_text_entries.find(entry => entry.language.name === 'en')?.flavor_text ??
+        'No description found',
+    })
+  })
 
   return (
     <Panel>

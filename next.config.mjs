@@ -8,6 +8,18 @@ const nextConfig = {
         port: '',
         pathname: '/PokeAPI/sprites/master/sprites/**',
       },
+      {
+        protocol: 'https',
+        hostname: 'raw.githubusercontent.com',
+        port: '',
+        pathname: '/msikma/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'raw.githubusercontent.com',
+        port: '',
+        pathname: '/andreferreiradlw/**',
+      },
     ]
   }
 };

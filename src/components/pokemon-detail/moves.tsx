@@ -7,17 +7,36 @@ import { Table } from '@/components/layout/table/table'
 import { Row } from '@/components/layout/table/row'
 import { Cell } from '@/components/layout/table/cell'
 import { formatName } from '@/lib/util/typography'
-import { mapGeneration, mapVersionToGroup } from '@/lib/util/game-version.utils'
+import { checkIfEarlierGen, mapGeneration, mapGenerationToGame, mapVersionToGroup } from '@/lib/util/game-version.utils'
 import { useEffect, useState } from 'react'
 import { GAME_VERSIONS } from '@/lib/models/game-versions'
+import { PokemonSpecies } from '@/lib/models/pokemon-species.model'
 
 interface MoveWithVersionGroupDetails {
   move: Move
   versionGroupDetails: PokemonDetail['moves'][0]['version_group_details'],
 }
 
-export const Moves = ({ moveWithVersionGroupDetails }: { moveWithVersionGroupDetails: MoveWithVersionGroupDetails[] }) => {
-  const [gameVersion, setGameVersion] = useState<string>(GAME_VERSIONS[0].value)
+export const Moves = ({
+  moveWithVersionGroupDetails,
+  pokemonId,
+  games,
+  generation,
+
+}: {
+  moveWithVersionGroupDetails: MoveWithVersionGroupDetails[],
+  pokemonId: number,
+  generation: PokemonSpecies['generation']['name'],
+  games: string[],
+}) => {
+  // unfortunately, not all data is fully recorded and some Pokémon are missing the game_indices,
+  // which is why we have to implement a fallback, where we use the generation of the Pokémon instead and show the related game and every newer one,
+  // instead of showing only the games the Pokémon is present in.
+  const gamesThePokemonIsPresentIn = !!games?.length
+    ? GAME_VERSIONS.filter(version => games.includes(version.value))
+    : GAME_VERSIONS.filter(version => !checkIfEarlierGen(mapGenerationToGame(generation, pokemonId), version.value))
+
+  const [gameVersion, setGameVersion] = useState<string>(gamesThePokemonIsPresentIn[0].value)
   const [filteredMoves, setFilteredMoves] = useState<MoveWithVersionGroupDetails[]>([])
 
   const versionGroup = mapVersionToGroup(gameVersion)
@@ -47,7 +66,7 @@ export const Moves = ({ moveWithVersionGroupDetails }: { moveWithVersionGroupDet
                     onChange={ e => setGameVersion(e.target.value) }
                     value={ gameVersion }>
               {
-                GAME_VERSIONS.map(option => <option key={ option.value } value={ option.value }>{ option.label }</option>)
+                gamesThePokemonIsPresentIn.map(option => <option key={ option.value } value={ option.value }>{ option.label }</option>)
               }
             </select>
           </div>
@@ -74,7 +93,10 @@ export const Moves = ({ moveWithVersionGroupDetails }: { moveWithVersionGroupDet
           })
         }
       </Table>
+      {
+        (filteredMoves?.length == 0) &&
+        <span className="flex w-full justify-center pt-10 pb-2 text-gray-400">No moves could be found for the selected game.</span>
+      }
     </>
   )
-
 }

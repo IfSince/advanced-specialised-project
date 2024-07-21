@@ -7,6 +7,7 @@ import { ArrowRight } from '@/components/icons/arrow-right'
 import { SubTitle } from '@/components/layout/sub-title'
 import Image from 'next/image'
 import { PokemonDetail } from '@/lib/models/pokemon-detail.model'
+import { ImageIcon } from '@/components/icons/image-icon'
 
 const renderSprite = (type: 'frontDefault' | 'frontShiny' | 'backDefault' | 'backShiny', sprite?: string) => {
   const alt: Record<typeof type, string> = {
@@ -18,7 +19,10 @@ const renderSprite = (type: 'frontDefault' | 'frontShiny' | 'backDefault' | 'bac
 
   return sprite
     ? <Image src={ sprite } alt={ alt[type] } width={ 350 } height={ 350 }/>
-    : <div className="flex items-center justify-center rounded-lg border-2 border-gray-500 w-[350px] h-[350px]">No { alt[type].toLowerCase() } found.</div>
+    : <div className="flex flex-col items-center justify-center gap-6 rounded-lg text-gray-500 w-[350px] h-[350px]">
+      <ImageIcon className="h-24 w-24 fill-gray-500"/>
+      No { alt[type].toLowerCase() } found.
+    </div>
 }
 
 export const Sprites = ({ sprites }: { sprites: PokemonDetail['sprites'] }) => {

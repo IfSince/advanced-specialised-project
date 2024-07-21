@@ -33,6 +33,5 @@ export interface ChainLink {
 
 export interface EvolutionChain {
   id: number
-  baby_trigger_item?: string
   chain: ChainLink
 }
