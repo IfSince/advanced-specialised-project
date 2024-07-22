@@ -21,7 +21,7 @@ export const Button = ({ className = '', type = 'button', click = void 0, icon, 
      disabled:text-gray-600 disabled:border-gray-700 disabled:hover:text-gray-600 disabled:hover:bg-gray-800 disabled:fill-gray-600 disabled:hover:fill-gray-600
      `,
     className,
-    text != null && 'px-3 py-2',
+    text != null && 'px-5 py-2',
     icon != null && text == null && 'p-2',
     size === 'md' && 'text-sm',
     size === 'lg' && 'text-base',

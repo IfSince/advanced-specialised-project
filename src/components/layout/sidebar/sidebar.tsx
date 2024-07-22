@@ -5,6 +5,8 @@ import { Button } from '@/components/layout/buttons/button'
 import { useState } from 'react'
 import { DashboardIcon } from '@/components/icons/dashboard'
 import clsx from 'clsx'
+import { CloseIcon } from '@/components/icons/close'
+import { MenuIcon } from '@/components/icons/menu'
 
 interface NavLinks {
   main: NavItemProps[]
@@ -35,7 +37,7 @@ export const Sidebar = () => {
 
       <Button className="fixed right-4 bottom-4 z-20 md:hidden"
               click={ toggleSidebar }
-              icon={ sidebarOpen ? 'close' : 'menu' }
+              icon={ sidebarOpen ? <CloseIcon className="w-6 h-6"/> : <MenuIcon className="w-6 h-6"/> }
               size="lg"/>
 
       <aside className={ clsx('fixed top-0 left-0 z-40 h-screen w-64 transition-transform md:translate-x-0 pt-14', !sidebarOpen && '-translate-x-full') }
