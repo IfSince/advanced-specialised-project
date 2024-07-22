@@ -5,6 +5,8 @@ import { sortAndMapPokemonTypes } from '@/lib/util/mappers/sort-and-map-pokemon-
 import { getPokemonDetailByName } from '@/lib/data/get-pokemon-detail-by-name'
 import { getPokemonList } from '@/lib/data/get-pokemon-list'
 import { ReactNode } from 'react'
+import { reloadPokemonDetail } from '@/lib/actions/revalidate-pokemon-detail'
+import { RefreshDataButton } from '@/components/layout/buttons/refresh-data-button'
 
 export const dynamicParams = false
 
@@ -42,6 +44,7 @@ export default async function Layout({
               <span>{ formatName(name) }</span>
               <PokemonTypes types={ sortAndMapPokemonTypes(data.types) }/>
             </span>
+            <RefreshDataButton action={ reloadPokemonDetail.bind(null, name) }/>
           </span>
       </Title>
       { baseInformation }

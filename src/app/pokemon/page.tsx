@@ -9,6 +9,8 @@ import { Suspense } from 'react'
 import { PokemonListEntrySkeleton } from '@/components/skeletons/pokemon-list-entry.skeleton'
 import { RowSkeleton } from '@/components/skeletons/table/row.skeleton'
 import { PokemonListResult } from '@/lib/models/pokemon-list-result.model'
+import { RefreshDataButton } from '@/components/layout/buttons/refresh-data-button'
+import { reloadPokemonList } from '@/lib/actions/revalidate-pokemon-list'
 
 
 export default async function Page({ searchParams }: { searchParams?: { page?: string } }) {
@@ -22,7 +24,12 @@ export default async function Page({ searchParams }: { searchParams?: { page?: s
 
   return (
     <section>
-      <Title>Pokemon List</Title>
+      <Title>
+        <span className="flex justify-between">
+          <span>Pokemon List</span>
+          <RefreshDataButton action={ reloadPokemonList }/>
+        </span>
+      </Title>
       <Panel>
         <div className="flex flex-col py-3 space-y-3 lg:space-y-0 lg:space-x-4 lg:flex-row lg:items-center lg:justify-between">
           <div className="flex flex-1 items-center space-x-4">
