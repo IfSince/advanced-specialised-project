@@ -1,6 +1,11 @@
 import { Button } from '@/components/layout/buttons/button'
 
-export const ErrorPage = ({ error, reset }: { error: Error & { digest?: string }, reset: () => void }) =>
+export interface ErrorPageProps {
+  error: Error & { digest?: string },
+  reset: () => void
+}
+
+export const ErrorPage = ({ error, reset }: ErrorPageProps) =>
   <section>
     <div className="mx-auto py-20 md:px-10 md:py-52 lg:max-w-screen-xl">
       <div className="mx-auto flex max-w-screen-sm flex-col items-center text-center">

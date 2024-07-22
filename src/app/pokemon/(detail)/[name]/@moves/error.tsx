@@ -1,13 +1,12 @@
 'use client'
 
-import { Panel } from '@/components/layout/panel'
-import { SubTitle } from '@/components/layout/sub-title'
+import { ErrorPanel } from '@/components/error/error-panel'
+import { ErrorPageProps } from '@/components/error/error-page'
 
-export default function MovesError() {
+export default function MovesError(props: ErrorPageProps) {
   return (
-    <Panel>
-      <SubTitle>Moves</SubTitle>
-      <span>An error occurred while loading the moves</span>
-    </Panel>
+    <ErrorPanel title="Moves"
+                message="An error occurred while loading the moves. Please try again later."
+                { ...props }/>
   )
 }

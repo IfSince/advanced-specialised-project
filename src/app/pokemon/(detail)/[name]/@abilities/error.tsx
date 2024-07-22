@@ -1,13 +1,12 @@
 'use client'
 
-import { Panel } from '@/components/layout/panel'
-import { SubTitle } from '@/components/layout/sub-title'
+import { ErrorPanel } from '@/components/error/error-panel'
+import { ErrorPageProps } from '@/components/error/error-page'
 
-export default function AbilitiesError() {
+export default function AbilitiesError(props: ErrorPageProps) {
   return (
-    <Panel>
-      <SubTitle>Abilities</SubTitle>
-      <span>An error occurred while loading the abilities</span>
-    </Panel>
+      <ErrorPanel title="Abilities"
+                  message="An error occurred while loading the abilities. Please try again later."
+                  { ...props }/>
   )
 }
