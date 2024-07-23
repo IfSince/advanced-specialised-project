@@ -19,7 +19,7 @@ export const SidebarItem = ({ href, title, icon }: NavItemProps) => {
       <Link href={ href }
             className={ clsx(
               'flex items-center rounded-md p-2 text-base font-normal text-white transition duration-75 group hover:bg-gray-700',
-              pathname === href && 'bg-gray-700',
+              pathname === href && 'active bg-gray-700',
             ) }>
         { icon }
         <span className="ml-3">{ title }</span>

@@ -7,6 +7,7 @@ import { DashboardIcon } from '@/components/icons/dashboard'
 import clsx from 'clsx'
 import { CloseIcon } from '@/components/icons/close'
 import { MenuIcon } from '@/components/icons/menu'
+import { HomeIcon } from '@/components/icons/home'
 
 interface NavLinks {
   main: NavItemProps[]
@@ -16,9 +17,14 @@ interface NavLinks {
 const NAV_LINKS: NavLinks = {
   main: [
     {
+      title: 'Home',
+      href: '/',
+      icon: <HomeIcon className="h-6 w-6 group-[.active]:fill-white fill-gray-400 transition duration-75 group-hover:fill-white"/>,
+    },
+    {
       title: 'List',
       href: '/pokemon',
-      icon: <DashboardIcon className="h-6 w-6 fill-gray-400 transition duration-75 group-hover:fill-white"/>,
+      icon: <DashboardIcon className="h-6 w-6 group-[.active]:fill-white fill-gray-400 transition duration-75 group-hover:fill-white"/>,
     },
   ],
   sub: [],
@@ -37,7 +43,7 @@ export const Sidebar = () => {
 
       <Button className="fixed right-4 bottom-4 z-20 md:hidden"
               click={ toggleSidebar }
-              icon={ sidebarOpen ? <CloseIcon className="w-6 h-6"/> : <MenuIcon className="w-6 h-6"/> }
+              icon={ sidebarOpen ? <CloseIcon className="h-6 w-6"/> : <MenuIcon className="h-6 w-6"/> }
               size="lg"/>
 
       <aside className={ clsx('fixed top-0 left-0 z-40 h-screen w-64 transition-transform md:translate-x-0 pt-14', !sidebarOpen && '-translate-x-full') }

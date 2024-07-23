@@ -16,11 +16,13 @@ export default function RootLayout({ children }: Readonly<{ children: ReactNode 
   return (
     <html lang="en">
     <body className={ `antialiased bg-gray-900 text-white ${ inter.className }` }>
-      <Header/>
-      <Sidebar/>
-      <main className="mt-20 h-auto min-h-screen bg-gray-900 px-4 pb-4 md:ml-64">
-        { children }
-      </main>
+      <div className="grid min-h-screen">
+        <Header/>
+        <Sidebar/>
+        <main className="mt-20 h-auto bg-gray-900 px-4 pb-4 md:ml-64">
+          { children }
+        </main>
+      </div>
     </body>
     </html>
   )
