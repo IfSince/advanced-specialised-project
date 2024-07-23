@@ -1,6 +1,6 @@
 'use client'
 
-import { NavItemProps, SidebarItem } from '@/components/layout/sidebar/sidebar-item'
+import { SidebarItem, SidebarItemProps } from '@/components/layout/sidebar/sidebar-item'
 import { Button } from '@/components/layout/buttons/button'
 import { useState } from 'react'
 import { DashboardIcon } from '@/components/icons/dashboard'
@@ -8,10 +8,13 @@ import clsx from 'clsx'
 import { CloseIcon } from '@/components/icons/close'
 import { MenuIcon } from '@/components/icons/menu'
 import { HomeIcon } from '@/components/icons/home'
+import { SchoolIcon } from '@/components/icons/school'
+import { ExternalSidebarItem } from '@/components/layout/sidebar/external-sidebar-item'
+import { CodeIcon } from '@/components/icons/code'
 
 interface NavLinks {
-  main: NavItemProps[]
-  sub: NavItemProps[]
+  main: SidebarItemProps[]
+  sub: SidebarItemProps[]
 }
 
 const NAV_LINKS: NavLinks = {
@@ -19,19 +22,36 @@ const NAV_LINKS: NavLinks = {
     {
       title: 'Home',
       href: '/',
-      icon: <HomeIcon className="h-6 w-6 group-[.active]:fill-white fill-gray-400 transition duration-75 group-hover:fill-white"/>,
+      icon: <HomeIcon className="h-6 w-6 fill-gray-400 transition duration-75 group-hover:fill-white group-[.active]:fill-white"/>,
     },
     {
       title: 'List',
       href: '/pokemon',
-      icon: <DashboardIcon className="h-6 w-6 group-[.active]:fill-white fill-gray-400 transition duration-75 group-hover:fill-white"/>,
+      icon: <DashboardIcon className="h-6 w-6 fill-gray-400 transition duration-75 group-hover:fill-white group-[.active]:fill-white"/>,
     },
   ],
-  sub: [],
+  sub: [
+    {
+      title: 'E-learning',
+      href: 'https://github.com/IfSince/advanced-specialised-project',
+      icon: <SchoolIcon className="h-6 w-6 fill-gray-400 transition duration-75 group-hover:fill-white group-[.active]:fill-white"/>,
+      external: true,
+    },
+    {
+      title: 'Source code',
+      href: 'https://github.com/IfSince/advanced-specialised-project',
+      icon: <CodeIcon className="h-6 w-6 fill-gray-400 transition duration-75 group-hover:fill-white group-[.active]:fill-white"/>,
+      external: true,
+    },
+  ],
 }
 
 export const Sidebar = () => {
-  const renderLinks = (items: NavItemProps[]) => items.map(item => <SidebarItem { ...item } key={ item.title }/>)
+  const renderLinks = (items: SidebarItemProps[]) => items.map(item =>
+    item.external
+      ? <ExternalSidebarItem key={ item.title } { ...item }/>
+      : <SidebarItem key={ item.title } { ...item }/>,
+  )
 
   const [sidebarOpen, setSidebarOpen] = useState(false)
   const toggleSidebar = () => setSidebarOpen((prev) => !prev)

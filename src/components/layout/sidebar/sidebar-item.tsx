@@ -5,13 +5,14 @@ import clsx from 'clsx'
 import Link from 'next/link'
 import { ReactNode } from 'react'
 
-export interface NavItemProps {
+export interface SidebarItemProps {
   title: string
   href: string
   icon: ReactNode
+  external?: boolean
 }
 
-export const SidebarItem = ({ href, title, icon }: NavItemProps) => {
+export const SidebarItem = ({ href, title, icon }: SidebarItemProps) => {
   const pathname = usePathname()
 
   return (
