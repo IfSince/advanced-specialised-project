@@ -15,17 +15,15 @@ export const Tabs = <T, >({ value, setValue, config }: TabProps<T>) => {
      border-t border-b first:border first:rounded-s-lg last:border last:rounded-e-lg`
 
   return (
-    <>
-      <ul className="flex rounded-lg text-center text-base font-medium text-gray-500 first">
-        {
-          config.map(entry =>
-            <li key={ entry.label }
-                className={ clsx(sharedClassNames, value == entry.value ? 'bg-gray-700 text-white' : 'text-gray-200 bg-gray-800') }>
-              <button className="px-5 py-2" onClick={ () => setValue(entry.value) }>{ entry.label }</button>
-            </li>,
-          )
-        }
-      </ul>
-    </>
+    <ul className="flex rounded-lg text-center text-base font-medium text-gray-500 first">
+      {
+        config.map(entry =>
+          <li key={ entry.label }
+              className={ clsx(sharedClassNames, value == entry.value ? 'bg-gray-700 text-white' : 'text-gray-200 bg-gray-800') }>
+            <button className="px-5 py-2" onClick={ () => setValue(entry.value) }>{ entry.label }</button>
+          </li>,
+        )
+      }
+    </ul>
   )
 }
