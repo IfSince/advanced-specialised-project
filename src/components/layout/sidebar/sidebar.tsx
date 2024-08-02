@@ -33,7 +33,7 @@ const NAV_LINKS: NavLinks = {
   sub: [
     {
       title: 'E-learning',
-      href: 'https://github.com/IfSince/advanced-specialised-project',
+      href: 'https://e-learning-mu-pearl.vercel.app/',
       icon: <SchoolIcon className="h-6 w-6 fill-gray-400 transition duration-75 group-hover:fill-white group-[.active]:fill-white"/>,
       external: true,
     },
